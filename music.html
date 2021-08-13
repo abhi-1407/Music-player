@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="music.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" integrity="sha512-PgQMlq+nqFLV4ylk1gwUOgm6CtIIXkKwaIHp/PAIWHzig/lKZSEGKEysh0TCVbHJXCLN7WetD8TFecIky75ZfQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Document</title>
+</head>
+<body>
+    <div class="main_div">
+     <div class="music_container">
+         <h2 id="title">LOTUS LANE</h2>
+         <h3 id="artist">The Loyalist</h3>
+         <div >
+             <img src="pic-1.jpg" class="rotate_image" id="img_container"  >
+         </div>
+         <audio src="back-1.mp3"></audio>
+         <div class="music_controls">
+            <i class="fas fa-backward" id="prev"></i>
+            <i class="fas fa-play" id="play"></i>
+            <i class="fas fa-forward" id="forward"></i>
+
+         </div>
+
+     </div>
+     <script>
+         const music=document.querySelector("audio");
+         const img=document.querySelector("img");
+         const play=document.getElementById("play");
+         const artist=document.getElementById("artist");
+         const title=document.getElementById("title");
+         const prev=document.getElementById("prev");
+         const next=document.getElementById("forward");
+         const songs = [{
+             name:"song-1",
+             title:"cartoon",
+             artist:"Daniel Levi",
+             imgName:"pic-1",
+            },
+            {
+             name:"song-2",
+             title:"Scientist",
+             artist:"Cold play",
+             imgName:"pic-2",
+            },
+            {
+             name:"song-3",
+             title:"cherry wine",
+             artist:"Hozier",
+             imgName:"pic-3",
+            },
+
+         ];
+         const loadSong=(songs)=>{
+             title.textContent=songs.title;
+             artist.textContent=songs.artist;
+             music.src=songs.name+".mp3";
+             img.src=songs.imgName+".jpg";
+         };
+         loadSong(songs[2]);
+         let isPlaying =false;
+        const playMusic = () =>{
+             isPlaying=true;
+             music.play();
+             play.classList.replace("fa-play","fa-pause");
+             img.classList.add("rotate_image");
+         };
+         const pauseMusic = () =>{
+             isPlaying=false;
+             music.pause();
+             play.classList.replace("fa-pause","fa-play");
+             img.classList.add("rotate_image");
+         };
+         play.addEventListener("click",()=>{
+             if(isPlaying)
+             {
+                 pauseMusic();
+             }
+             else playMusic();
+         });
+         songIndex=0;
+         const nextSong= () =>{
+             songIndex = ( songIndex + 1)%songs.length;
+             loadSong(songs[songIndex]);  
+             playMusic();           
+         };
+         const prevSong= () =>{
+             songIndex = ( songIndex - 1 + songs.length) % songs.length;
+             loadSong(songs[songIndex]);  
+             playMusic();           
+         };
+         next.addEventListener("click",nextSong);
+         prev.addEventListener("click",prevSong);
+
+     </script>
+    </class>
+</body>
+</html>
